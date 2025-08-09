@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Clinton Okechukwu - Web Developer Portfolio</title>
+<style>
+  :root {
+    --clr-bg-light: #f9fafb;
+    --clr-bg-dark: #121518;
+    --clr-text-light: #222;
+    --clr-text-dark: #e4e6eb;
+    --clr-accent-light: #4a90e2;
+    --clr-accent-dark: #649bff;
+    --clr-muted-light: #777;
+    --clr-muted-dark: #aaa;
+    --transition: 0.3s ease;
+    --max-width: 900px;
+    --border-radius: 6px;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background: var(--clr-bg-light);
+    color: var(--clr-text-light);
+    line-height: 1.55;
+    transition: background var(--transition), color var(--transition);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  body.dark {
+    background: var(--clr-bg-dark);
+    color: var(--clr-text-dark);
+  }
+  a {
+    color: var(--clr-accent-light);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+  body.dark a {
+    color: var(--clr-accent-dark);
+  }
+  a:hover,
+  a:focus {
+    text-decoration: underline;
+  }
+  header {
+    padding: 2rem 1rem 3rem;
+    text-align: center;
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+  header h1 {
+    font-weight: 700;
+    font-size: 2.8rem;
+    margin: 0 0 0.3rem;
+  }
+  header p.role {
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--clr-muted-light);
+    margin: 0 0 0.5rem;
+  }
+  body.dark header p.role {
+    color: var(--clr-muted-dark);
+  }
+  header p.tagline {
+    font-size: 1rem;
+    font-style: italic;
+    max-width: 420px;
+    margin: 0 auto;
+    color: var(--clr-muted-light);
+  }
+  body.dark header p.tagline {
+    color: var(--clr-muted-dark);
+  }
+  .avatar {
+    width: 110px;
+    height: 110px;
+    background: var(--clr-muted-light);
+    border-radius: 50%;
+    margin: 1.7rem auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--clr-bg-light);
+    font-size: 3.5rem;
+    user-select: none;
+  }
+  body.dark .avatar {
+    background: var(--clr-muted-dark);
+    color: var(--clr-bg-dark);
+  }
+  main {
+    flex-grow: 1;
+    max-width: var(--max-width);
+    margin: 0 auto 3rem;
+    padding: 0 1rem;
+  }
+  section {
+    margin-bottom: 3rem;
+  }
+  h2 {
+    font-weight: 700;
+    font-size: 1.8rem;
+    border-bottom: 2px solid var(--clr-accent-light);
+    padding-bottom: 0.3rem;
+    margin-bottom: 1rem;
+    max-width: max-content;
+  }
+  body.dark h2 {
+    border-color: var(--clr-accent-dark);
+  }
+  /* About Me */
+  #about p {
+    max-width: 720px;
+    color: var(--clr-muted-light);
+  }
+  body.dark #about p {
+    color: var(--clr-muted-dark);
+  }
+
+  /* Skills */
+  #skills {
+    display: grid;
+    gap: 1.6rem 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+  .skill-category {
+    background: #fff;
+    padding: 1.2rem 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    transition: background var(--transition), box-shadow var(--transition);
+  }
+  body.dark .skill-category {
+    background: #1b1f24;
+    box-shadow: 0 1px 6px rgba(255,255,255,0.1);
+  }
+  .skill-category h3 {
+    margin: 0 0 0.8rem;
+    font-weight: 600;
+    color: var(--clr-accent-light);
+  }
+  body.dark .skill-category h3 {
+    color: var(--clr-accent-dark);
+  }
+  .skill-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .skill-item {
+    margin-bottom: 1rem;
+  }
+  .skill-name {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+  .progress-bar {
+    height: 8px;
+    background: var(--clr-bg-light);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 0.3rem;
+  }
+  body.dark .progress-bar {
+    background: #333;
+  }
+  .progress-bar > div {
+    height: 100%;
+    background: var(--clr-accent-light);
+    transition: width 0.5s ease;
+  }
+  body.dark .progress-bar > div {
+    background: var(--clr-accent-dark);
+  }
+
+  /* Projects */
+  #projects {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 600px) {
+    #projects {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .project-card {
+    background: #fff;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.07);
+    display: flex;
+    flex-direction: column;
+    transition: background var(--transition), box-shadow var(--transition);
+  }
+  body.dark .project-card {
+    background: #1b1f24;
+    box-shadow: 0 1px 8px rgba(255,255,255,0.1);
+  }
+  .project-img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: var(--clr-muted-light);
+  }
+  body.dark .project-img {
+    background: var(--clr-muted-dark);
+  }
+  .project-content {
+    padding: 1rem 1.2rem 1.3rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .project-title {
+    margin: 0 0 0.4rem;
+    font-weight: 600;
+    font-size: 1.15rem;
+  }
+  .project-desc {
+    flex-grow: 1;
+    font-size: 0.95rem;
+    color: var(--clr-muted-light);
+    margin-bottom: 0.7rem;
+  }
+  body.dark .project-desc {
+    color: var(--clr-muted-dark);
+  }
+  .project-tech {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--clr-muted-light);
+    margin-bottom: 0.8rem;
+  }
+  body.dark .project-tech {
+    color: var(--clr-muted-dark);
+  }
+  .project-links a {
+    margin-right: 1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  /* Blog placeholder */
+  #blog-placeholder {
+    font-style: italic;
+    color: var(--clr-muted-light);
+    text-align: center;
+    font-size: 1rem;
+  }
+  body.dark #blog-placeholder {
+    color: var(--clr-muted-dark);
+  }
+
+  /* Testimonials */
+  #testimonials {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .testimonial {
+    background: #fff;
+    padding: 1rem 1.3rem 1.2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 1px 8px rgba(0,0,0,0.07);
+    margin-bottom: 1.6rem;
+    font-style: italic;
+    position: relative;
+    transition: background var(--transition), box-shadow var(--transition);
+  }
+  body.dark .testimonial {
+    background: #1b1f24;
+    box-shadow: 0 1px 8px rgba(255,255,255,0.1);
+  }
+  .testimonial::before {
+    content: "“";
+    font-size: 3rem;
+    color: var(--clr-accent-light);
+    position: absolute;
+    top: 10px;
+    left: 15px;
+  }
+  body.dark .testimonial::before {
+    color: var(--clr-accent-dark);
+  }
+  .testimonial-footer {
+    margin-top: 0.8rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: right;
+    color: var(--clr-muted-light);
+  }
+  body.dark .testimonial-footer {
+    color: var(--clr-muted-dark);
+  }
+
+  /* Contact */
+  #contact form {
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  #contact label {
+    margin: 0.7rem 0 0.3rem 0;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  #contact input[type="text"],
+  #contact input[type="email"],
+  #contact textarea {
+    padding: 0.5rem 0.6rem;
+    border: 1.8px solid #ccc;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    resize: vertical;
+    transition: border-color var(--transition);
+  }
+  body.dark #contact input[type="text"],
+  body.dark #contact input[type="email"],
+  body.dark #contact textarea {
+    background: #22272a;
+    border-color: #555;
+    color: var(--clr-text-dark);
+  }
+  #contact input[type="text"]:focus,
+  #contact input[type="email"]:focus,
+  #contact textarea:focus {
+    outline: none;
+    border-color: var(--clr-accent-light);
+  }
+  body.dark #contact input[type="text"]:focus,
+  body.dark #contact input[type="email"]:focus,
+  body.dark #contact textarea:focus {
+    border-color: var(--clr-accent-dark);
+  }
+  #contact textarea {
+    min-height: 100px;
+  }
+  #contact .error {
+    border-color: #e55353 !important;
+  }
+  #contact .error-msg {
+    color: #e55353;
+    font-size: 0.85rem;
+    margin-top: 0.2rem;
+    font-weight: 600;
+  }
+  #contact button {
+    margin-top: 1.2rem;
+    padding: 0.65rem 0;
+    background: var(--clr-accent-light);
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 700;
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    transition: background var(--transition);
+  }
+  body.dark #contact button {
+    background: var(--clr-accent-dark);
+  }
+  #contact button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  #contact .success-msg {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #d4edda;
+    color: #155724;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    text-align: center;
+  }
+  body.dark #contact .success-msg {
+    background: #224422;
+    color: #aaddaa;
+  }
+  /* Honeypot - hide offscreen */
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    height: 0;
+    overflow: hidden;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 2rem 1rem 2.5rem;
+    background: #f0f3f5;
+    color: #555;
+    user-select: none;
+  }
+  body.dark footer {
+    background: #181c20;
+    color: #888;
+  }
+  .social-links {
+    margin-bottom: 1rem;
+  }
+  .social-links a {
+    margin: 0 0.6rem;
+    color: var(--clr-muted-light);
+    font-size: 1.3rem;
+    display: inline-block;
+    transition: color var(--transition);
+  }
+  body.dark .social-links a {
+    color: var(--clr-muted-dark);
+  }
+  .social-links a:hover,
+  .social-links a:focus {
+    color: var(--clr-accent-light);
+  }
+  body.dark .social-links a:hover,
+  body.dark .social-links a:focus {
+    color: var(--clr-accent-dark);
+  }
+
+  /* Theme toggle */
+  .theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: var(--clr-bg-light);
+    border: 1.5px solid var(--clr-accent-light);
+    border-radius: 20px;
+    width: 50px;
+    height: 26px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    transition: background var(--transition), border-color var(--transition);
+    z-index: 9999;
+  }
+  body.dark .theme-toggle {
+    background: var(--clr-bg-dark);
+    border-color: var(--clr-accent-dark);
+  }
+  .toggle-ball {
+    background: var(--clr-accent-light);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    transition: transform 0.3s ease;
+  }
+  body.dark .toggle-ball {
+    background: var(--clr-accent-dark);
+    transform: translateX(24px);
+  }
+
+  /* Responsive */
+  @media (max-width: 420px) {
+    header h1 {
+      font-size: 2rem;
+    }
+    header p.role {
+      font-size: 1rem;
+    }
+    header p.tagline {
+      font-size: 0.9rem;
+      max-width: 95vw;
+    }
+    #skills {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Screen reader only */
+  .sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    border: 0 !important;
+  }
+</style>
+</head>
+<body>
+<button aria-label="Toggle dark/light theme" class="theme-toggle" id="theme-toggle" type="button">
+  <span class="toggle-ball"></span>
+</button>
+
+<header>
+  <div class="avatar" aria-label="Avatar placeholder" role="img" aria-roledescription="avatar">CO</div>
+  <h1 id="name">Clinton Okechukwu</h1>
+  <p class="role">Fullstack Web Developer</p>
+  <p class="tagline">Crafting clean, efficient, and scalable web experiences that empower businesses.</p>
+</header>
+
+<main>
+  <section id="about" aria-labelledby="about-heading">
+    <h2 id="about-heading">About Me</h2>
+    <p>
+      I’m passionate about building modern web applications with clean code and scalable architectures. With a growth mindset, I continually refine my skills and adapt to new technologies to deliver quality solutions.
+    </p>
+  </section>
+
+  <section id="skills" aria-label="Skills and proficiency levels">
+    <h2>Skills</h2>
+
+    <article class="skill-category" aria-label="Frontend Development Skills">
+      <h3>Frontend Development</h3>
+      <ul class="skill-list">
+        <li class="skill-item">
+          <div class="skill-name">HTML / CSS</div>
+          <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="90" aria-label="HTML and CSS proficiency">
+            <div style="width:90%"></div>
+          </div>
+        </li>
+        <li class="skill-item">
+          <div class="skill-name">JavaScript</div>
+          <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="85" aria-label="JavaScript proficiency">
+            <div style="width:85%"></div>
+          </div>
+        </li>
+        <li class="skill-item">
+          <div class="skill-name">React</div>
+          <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80" aria-label="React proficiency">
+            <div style="width:80%"></div>
+          </div>
+        </li>
+      </ul>
+    </article>
+
+    <article class="skill-category" aria-label="Backend Development Skills">
+      <h3>Backend Development</h3>
+      <ul class="skill-list">
+        <li class="skill-item">
+          <div class="skill-name">Node.js / Express</div>
+          <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80" aria-label="Node.js proficiency">
+            <div style="width:80%"></div>
+          </div>
+        </li>
+        <li class="skill-item">
+          <div class="skill-name">PHP / Laravel</div>
+          <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="75" aria-label="PHP proficiency">
+            <div style="width:75%"></div>
+          </div>
+        </li>
+        <li class="skill-item">
+          <div class="skill-name">REST APIs & GraphQL</div>
+          <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="70" aria-label="API proficiency">
+            <div style="width:70%"></div>
+          </div>
+        </li>
+      </ul>
+    </article>
+
+    <article class="skill-category" aria-label="Database & Tools Skills">
+      <h3>Databases & Tools</h3>
+      <ul class="skill-list">
+        <li class="skill-item">
+          <div class="skill-name">MongoDB</div>
+          <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="75" aria-label="MongoDB proficiency">
+            <div style="width:75%"></div>
+          </div>
+        </li>
+        <li class="skill-item">
+          <div class="skill-name">MySQL</div>
+          <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80" aria-label="MySQL proficiency">
+            <div style="width:80%"></div>
+          </div>
+        </li>
+        <li class="skill-item">
+          <div class="skill-name">Git & GitHub</div>
+          <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="85" aria-label="Git proficiency">
+            <div style="width:85%"></div>
+          </div>
+        </li>
+      </ul>
+    </article>
+  </section>
+
+  <section id="projects" aria-labelledby="projects-heading">
+    <h2 id="projects-heading">Projects</h2>
+
+    <article class="project-card">
+      <img src="https://via.placeholder.com/600x338?text=Project+One" alt="Screenshot of Project One" class="project-img" loading="lazy" />
+      <div class="project-content">
+        <h3 class="project-title">Project One</h3>
+        <p class="project-desc">
+          A responsive e-commerce web app built with React and Node.js that integrates Stripe payments and real-time inventory management.
+        </p>
+        <p class="project-tech">React, Node.js, Express, MongoDB, Stripe</p>
+        <div class="project-links">
+          <a href="#" target="_blank" rel="noopener" aria-label="View Project One live demo">Live Demo</a>
+          <a href="#" target="_blank" rel="noopener" aria-label="View Project One source code on GitHub">Source Code</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project-card">
+      <img src="https://via.placeholder.com/600x338?text=Project+Two" alt="Screenshot of Project Two" class="project-img" loading="lazy" />
+      <div class="project-content">
+        <h3 class="project-title">Project Two</h3>
+        <p class="project-desc">
+          A content management system for blogs featuring Markdown support, user roles, and SEO optimizations, built on Laravel.
+        </p>
+        <p class="project-tech">PHP, Laravel, MySQL, Vue.js</p>
+        <div class="project-links">
+          <a href="#" target="_blank" rel="noopener" aria-label="View Project Two live demo">Live Demo</a>
+          <a href="#" target="_blank" rel="noopener" aria-label="View Project Two source code on GitHub">Source Code</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project-card">
+      <img src="https://via.placeholder.com/600x338?text=Project+Three" alt="Screenshot of Project Three" class="project-img" loading="lazy" />
+      <div class="project-content">
+        <h3 class="project-title">Project Three</h3>
+        <p class="project-desc">
+          A real-time chat application with group rooms, direct messaging, and file sharing capabilities using Socket.IO.
+        </p>
+        <p class="project-tech">Node.js, Express, Socket.IO, React</p>
+        <div class="project-links">
+          <a href="#" target="_blank" rel="noopener" aria-label="View Project Three live demo">Live Demo</a>
+          <a href="#" target="_blank" rel="noopener" aria-label="View Project Three source code on GitHub">Source Code</a>
+        </div>
+      </div>
+    </article>
+
+  </section>
+
+  <section id="blog" aria-labelledby="blog-heading">
+    <h2 id="blog-heading">Blog / Notes</h2>
+    <p id="blog-placeholder">Coming soon: Sharing insights, tips, and experiences about web development and technology.</p>
+  </section>
+
+  <section id="testimonials" aria-labelledby="testimonials-heading">
+    <h2 id="testimonials-heading">Testimonials</h2>
+
+    <blockquote class="testimonial">
+      Clinton’s professionalism and skill brought our project to life with a seamless user experience. Highly recommended.
+      <footer class="testimonial-footer">– Jane Doe, CEO at TechCorp</footer>
+    </blockquote>
+
+    <blockquote class="testimonial">
+      His attention to detail and communication throughout the development process was outstanding. The project exceeded expectations.
+      <footer class="testimonial-footer">– John Smith, Product Manager at InnovateX</footer>
+    </blockquote>
+
+    <blockquote class="testimonial">
+      A reliable and talented developer who delivers quality work on time. I look forward to future collaborations.
+      <footer class="testimonial-footer">– Mary Johnson, Founder at Creativa</footer>
+    </blockquote>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Contact Me</h2>
+    <form
+      id="contact-form"
+      action="https://formsubmit.co/okechukwuclinton10@gmail.com" 
+      method="POST"
+      novalidate
+      autocomplete="off"
+    >
+      <input type="hidden" name="_captcha" value="false" />
+      <!-- Honeypot -->
+      <div class="honeypot" aria-hidden="true">
+        <label for="website">Website</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <label for="name">Name <span aria-hidden="true">*</span></label>
+      <input type="text" id="name" name="name" required aria-describedby="name-error" />
+      <div id="name-error" class="error-msg" role="alert" aria-live="polite"></div>
+
+      <label for="email">Email <span aria-hidden="true">*</span></label>
+      <input type="email" id="email" name="email" required aria-describedby="email-error" />
+      <div id="email-error" class="error-msg" role="alert" aria-live="polite"></div>
+
+      <label for="subject">Subject <span aria-hidden="true">*</span></label>
+      <input type="text" id="subject" name="subject" required aria-describedby="subject-error" />
+      <div id="subject-error" class="error-msg" role="alert" aria-live="polite"></div>
+
+      <label for="message">Message <span aria-hidden="true">*</span></label>
+      <textarea id="message" name="message" required aria-describedby="message-error"></textarea>
+      <div id="message-error" class="error-msg" role="alert" aria-live="polite"></div>
+
+      <button type="submit" id="submit-btn">Send Message</button>
+      <div class="success-msg" id="success-msg" role="alert" aria-live="polite" hidden>Thank you! Your message has been sent.</div>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <nav class="social-links" aria-label="Social media links">
+    <!-- Replace href="#" with your actual social media URLs -->
+    <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn profile" title="LinkedIn" tabindex="0" aria-describedby="social-info">🔗</a>
+    <a href="#" target="_blank" rel="noopener" aria-label="GitHub profile" title="GitHub" tabindex="0" aria-describedby="social-info">🐱</a>
+    <a href="#" target="_blank" rel="noopener" aria-label="Twitter profile" title="Twitter" tabindex="0" aria-describedby="social-info">🐦</a>
+    <a href="#" target="_blank" rel="noopener" aria-label="Email" title="Email" tabindex="0" aria-describedby="social-info">✉️</a>
+    <span id="social-info" class="sr-only">Social media links</span>
+  </nav>
+  <small>&copy; <span id="year"></span> Clinton Okechukwu. All rights reserved.</small>
+</footer>
+
+<script>
+  // Theme toggle with localStorage persistence
+  (function () {
+    const body = document.body;
+    const toggleBtn = document.getElementById("theme-toggle");
+    const themeKey = "portfolioTheme";
+
+    function applyTheme(theme) {
+      if (theme === "dark") {
+        body.classList.add("dark");
+      } else {
+        body.classList.remove("dark");
+      }
+    }
+
+    function toggleTheme() {
+      if (body.classList.contains("dark")) {
+        applyTheme("light");
+        localStorage.setItem(themeKey, "light");
+      } else {
+        applyTheme("dark");
+        localStorage.setItem(themeKey, "dark");
+      }
+    }
+
+    toggleBtn.addEventListener("click", toggleTheme);
+
+    // Initialize theme from localStorage or system preference
+    const savedTheme = localStorage.getItem(themeKey);
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    } else {
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      applyTheme(prefersDark ? "dark" : "light");
+    }
+  })();
+
+  // Front-end validation only (simple)
+  (function () {
+    const form = document.getElementById("contact-form");
+    const successMsg = document.getElementById("success-msg");
+    const submitBtn = document.getElementById("submit-btn");
+    const honeypot = form.querySelector('input[name="website"]');
+
+    const fields = {
+      name: form.querySelector("#name"),
+      email: form.querySelector("#email"),
+      subject: form.querySelector("#subject"),
+      message: form.querySelector("#message"),
+    };
+
+    const errors = {
+      name: form.querySelector("#name-error"),
+      email: form.querySelector("#email-error"),
+      subject: form.querySelector("#subject-error"),
+      message: form.querySelector("#message-error"),
+    };
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function validateField(field, errorElem) {
+      let valid = true;
+      let value = field.value.trim();
+
+      if (field === fields.email) {
+        if (!emailPattern.test(value)) {
+          valid = false;
+          errorElem.textContent = "Please enter a valid email.";
+        }
+      } else {
+        if (value.length < 2) {
+          valid = false;
+          errorElem.textContent = "This field is required.";
+        }
+      }
+
+      if (valid) {
+        errorElem.textContent = "";
+        field.classList.remove("error");
+      } else {
+        field.classList.add("error");
+      }
+      return valid;
+    }
+
+    Object.values(fields).forEach((f) => {
+      f.addEventListener("input", () => {
+        validateField(f, errors[f.id]);
+      });
+    });
+
+    form.addEventListener("submit", function (e) {
+      if (honeypot.value) {
+        e.preventDefault();
+        return; // Bot detected, do not submit
+      }
+
+      let formValid = true;
+      for (const key in fields) {
+        if (!validateField(fields[key], errors[key])) formValid = false;
+      }
+      if (!formValid) {
+        e.preventDefault();
+        return;
+      }
+
+      // Show success message on submit
+      // FormSubmit will redirect or show default page, so prevent double message here.
+      // To handle in a nicer way, FormSubmit supports redirect after submission by _next input.
+
+      successMsg.hidden = false;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+    });
+  })();
+
+  // Dynamic current year in footer
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
